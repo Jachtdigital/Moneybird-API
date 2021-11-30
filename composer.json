@@ -1,11 +1,11 @@
 {
-  "name":        "tripss/moneybird-api",
+  "name":        "jachtdigital/moneybird-api",
   "description": "Moneybird API client for PHP",
   "license":     "MIT",
   "authors":     [
     {
-      "name":  "Tycho Bokdam",
-      "email": "t.bokdam@seronaris.nl"
+      "name":  "Jacht.digital",
+      "email": "info@jacht.digital"
     }
   ],
   "require":     {
