@@ -1,19 +1,23 @@
 {
-  "name":        "jachtdigital/moneybird-api",
-  "description": "Moneybird API client for PHP",
-  "license":     "MIT",
-  "authors":     [
-    {
-      "name":  "Jacht.digital",
-      "email": "info@jacht.digital"
-    }
-  ],
-  "require":     {
-    "php": ">=5.5.0"
-  },
-  "autoload":    {
-    "psr-0": {
-      "Moneybird": "src/"
+    "name":        "jachtdigital/moneybird-api",
+    "description": "Moneybird API client for PHP",
+    "license":     "MIT",
+    "authors":     [
+      {
+        "name":  "Tycho Bokdam",
+        "email": "t.bokdam@seronaris.nl"
+      },
+      {
+        "name":  "Mike Groot",
+        "email": "mike.groot@jacht.digital"        
+      }
+    ],
+    "require":     {
+      "php": ">=5.5.0"
+    },
+    "autoload":    {
+      "psr-0": {
+        "Moneybird": "src/"
+      }
     }
   }
-}
