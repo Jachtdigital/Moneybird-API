@@ -8,7 +8,8 @@ use Moneybird\Resource\Products;
 use Moneybird\Resource\SalesInvoices;
 use Moneybird\Resource\Undefined as UndefinedResource;
 
-class Client {
+class Client
+{
 
     /**
      * Version of our client.
@@ -88,9 +89,10 @@ class Client {
     /**
      * @throws IncompatiblePlatformException
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->getCompatibilityChecker()
-             ->checkCompatibility();
+            ->checkCompatibility();
 
         $this->contacts      = new Contacts($this);
         $this->salesInvoices = new SalesInvoices($this);
@@ -102,7 +104,8 @@ class Client {
      *
      * @return UndefinedResource
      */
-    public function __get($resourcePath) {
+    public function __get($resourcePath)
+    {
         $undefinedResource = new UndefinedResource($this);
         $undefinedResource->setResourcePath($resourcePath);
 
@@ -114,7 +117,8 @@ class Client {
      *
      * @return $this
      */
-    public function setAccessToken($accessToken) {
+    public function setAccessToken($accessToken)
+    {
         $this->accessToken = trim($accessToken);
 
         return $this;
@@ -125,7 +129,8 @@ class Client {
      *
      * @return $this
      */
-    public function setAdministrationID($administrationID) {
+    public function setAdministrationID($administrationID)
+    {
         $this->administrationID = $administrationID;
 
         return $this;
@@ -142,7 +147,8 @@ class Client {
      * @return string
      * @throws Exception
      */
-    public function performHttpCall($httpMethod, $apiMethod, $queryString, $httpBody = NULL) {
+    public function performHttpCall($httpMethod, $apiMethod, $queryString, $httpBody = NULL, $type = null)
+    {
         if (empty($this->accessToken)) {
             throw new Exception("You have not set an access token. Please use setAccessToken() to set the access token.");
         }
@@ -159,7 +165,12 @@ class Client {
             curl_reset($this->ch);
         }
 
-        $url = $this->apiEndpoint . "/" . self::API_VERSION . "/{$this->administrationID}/" . $apiMethod . self::API_EXTENSION . $queryString;
+        # JD change, use type for a custom API Call without
+        if ($type == null) {
+            $url = $this->apiEndpoint . "/" . self::API_VERSION . "/{$this->administrationID}/" . $apiMethod . self::API_EXTENSION . $queryString;
+        } else {
+            $url = $this->apiEndpoint . "/" . self::API_VERSION . "/{$this->administrationID}/" . $apiMethod . $queryString;
+        }
 
         curl_setopt($this->ch, CURLOPT_URL, $url);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -207,7 +218,8 @@ class Client {
     /**
      * Close the TCP connection to the Moneybird API.
      */
-    private function closeTcpConnection() {
+    private function closeTcpConnection()
+    {
         if (is_resource($this->ch)) {
             curl_close($this->ch);
             $this->ch = NULL;
@@ -217,14 +229,16 @@ class Client {
     /**
      * Close any cURL handles, if we have them.
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         $this->closeTcpConnection();
     }
 
     /**
      * @return CompatibilityChecker
      */
-    protected function getCompatibilityChecker() {
+    protected function getCompatibilityChecker()
+    {
         static $checker = NULL;
 
         if (!$checker) {
@@ -239,7 +253,8 @@ class Client {
      *
      * @return int
      */
-    public function getLastHttpResponseStatusCode() {
+    public function getLastHttpResponseStatusCode()
+    {
         return $this->lastHttpResponseStatusCode;
     }
 }
