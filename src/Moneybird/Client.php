@@ -177,6 +177,7 @@ class Client
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($this->ch, CURLOPT_ENCODING, "");
 
+        
         $requestHeaders = [
             "Accept: application/json",
             "Authorization: Bearer {$this->accessToken}",
@@ -184,8 +185,13 @@ class Client
 
         curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, $httpMethod);
 
+        if (strpos($apiMethod, 'attachments') !== false) {
+            $requestHeaders[] = "Content-Type: multipart/mixed";
+         } else {
+             $requestHeaders[] = "Content-Type: application/json";
+         }
+
         if ($httpBody !== NULL) {
-            $requestHeaders[] = "Content-Type: application/json";
             curl_setopt($this->ch, CURLOPT_POST, 1);
             curl_setopt($this->ch, CURLOPT_POSTFIELDS, $httpBody);
         }
