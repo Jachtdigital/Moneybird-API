@@ -17,7 +17,7 @@ abstract class ResourceBase {
     /**
      * Default number of objects to retrieve when listing all objects.
      */
-    const DEFAULT_PER_PAGE = 50;
+    const DEFAULT_PER_PAGE = 100;
 
     /**
      * Default page number.
@@ -369,7 +369,7 @@ abstract class ResourceBase {
 
             return "{$this->resourcePath}/{$childString}";
         }
-
+        
         return $this->resourcePath;
     }
 

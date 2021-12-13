@@ -47,7 +47,7 @@ abstract class BaseObject {
         foreach ($ret as &$match) {
             $match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
         }
-
+        
         return implode('_', $ret);
     }
 

@@ -4,6 +4,7 @@ namespace Moneybird;
 
 use Moneybird\Exception\IncompatiblePlatformException;
 use Moneybird\Resource\Contacts;
+use Moneybird\Resource\LedgerAccounts;
 use Moneybird\Resource\Products;
 use Moneybird\Resource\SalesInvoices;
 use Moneybird\Resource\Undefined as UndefinedResource;
@@ -59,6 +60,14 @@ class Client
      */
     public $salesInvoices;
 
+
+    /**
+     * ReSTful Ledger Accounts.
+     *
+     * @var LedgerAccounts
+     */
+    public $ledgerAccounts;
+
     /**
      * RESTful Products resource.
      *
@@ -97,6 +106,7 @@ class Client
         $this->contacts      = new Contacts($this);
         $this->salesInvoices = new SalesInvoices($this);
         $this->products      = new Products($this);
+        $this->ledgerAccounts = new LedgerAccounts($this);
     }
 
     /**
@@ -177,7 +187,6 @@ class Client
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($this->ch, CURLOPT_ENCODING, "");
 
-        
         $requestHeaders = [
             "Accept: application/json",
             "Authorization: Bearer {$this->accessToken}",
