@@ -17,7 +17,7 @@ abstract class ResourceBase {
     /**
      * Default number of objects to retrieve when listing all objects.
      */
-    const DEFAULT_PER_PAGE = 100;
+    const DEFAULT_PER_PAGE = 50;
 
     /**
      * Default page number.
@@ -303,7 +303,7 @@ abstract class ResourceBase {
      *
      * @return array
      */
-    public function all(array $filters = [], $page = self::DEFAULT_PAGE, $perPage = self::DEFAULT_PER_PAGE) {
+    public function all(array $filters = [], $page, $perPage) {
         return $this->restList($this->getResourcePath(), $filters, $page, $perPage);
     }
 
